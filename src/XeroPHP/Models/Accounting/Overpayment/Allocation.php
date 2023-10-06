@@ -27,6 +27,12 @@ class Allocation extends Remote\Model
      */
 
     /**
+     * The Xero identifier for an Allocation e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9.
+     *
+     * @property string AllocationID
+     */
+
+    /**
      * Get the resource uri of the class (Contacts) etc.
      *
      * @return string
@@ -53,7 +59,7 @@ class Allocation extends Remote\Model
      */
     public static function getGUIDProperty()
     {
-        return '';
+        return 'AllocationID';
     }
 
     /**
@@ -91,6 +97,7 @@ class Allocation extends Remote\Model
             'Invoice' => [false, self::PROPERTY_TYPE_OBJECT, 'Accounting\\Invoice', false, false],
             'AppliedAmount' => [false, self::PROPERTY_TYPE_FLOAT, null, false, false],
             'Date' => [false, self::PROPERTY_TYPE_DATE, '\\DateTimeInterface', false, false],
+            'AllocationID' => [false, self::PROPERTY_TYPE_STRING, null, false, false],
         ];
     }
 
@@ -158,6 +165,27 @@ class Allocation extends Remote\Model
     {
         $this->propertyUpdated('Date', $value);
         $this->_data['Date'] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAllocationID()
+    {
+        return $this->_data['AllocationID'];
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return Allocation
+     */
+    public function setAllocationID($value)
+    {
+        $this->propertyUpdated('AllocationID', $value);
+        $this->_data['AllocationID'] = $value;
 
         return $this;
     }

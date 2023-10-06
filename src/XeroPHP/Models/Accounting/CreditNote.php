@@ -700,4 +700,23 @@ class CreditNote extends Remote\Model
     public function setHasAttachment($value)
     {
     }
+
+    /**
+     * @param Allocation $allocation
+     * 
+     * @return CreditNote
+     */
+    public function deleteAllocation(Allocation $allocation)
+    {
+        $uri = sprintf('%s/%s/%s/$s', static::getResourceURI(), $this->getGUID(), Allocation::getResourceURI(), $allocation->getGUID());
+        $url = new Remote\URL($this->_application, $uri);
+        $request = new Remote\Request($this->_application, $url, Remote\Request::METHOD_DELETE);
+        $response = $request->send();
+
+        if ($this->_data['Allocations']) {
+            $this->_data['Allocations']->remove($allocation);
+        }
+
+        return $this;
+    }
 }
